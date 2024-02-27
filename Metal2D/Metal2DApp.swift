@@ -9,6 +9,11 @@ import SwiftUI
 
 @main
 struct Metal2DApp: App {
+    
+    init() {
+        Core.initialize(device: MTLCreateSystemDefaultDevice()!)
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
