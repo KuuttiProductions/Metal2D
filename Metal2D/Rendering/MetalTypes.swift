@@ -31,8 +31,14 @@ extension sizeable {
 extension simd_float3: sizeable {}
 extension simd_float2: sizeable {}
 extension simd_float4: sizeable {}
+extension simd_float2x2: sizeable {}
+extension simd_float3x3: sizeable {}
 
 struct Vertex: sizeable {
     var position: simd_float2
     var textureCoordinate: simd_float2
+}
+
+struct ModelConstant: sizeable {
+    var modelMatrix = simd_float3x3()
 }

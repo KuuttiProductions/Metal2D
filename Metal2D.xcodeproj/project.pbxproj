@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51DDFC0D2B8FA1F900DF202B /* RenderMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DDFC0C2B8FA1F900DF202B /* RenderMath.swift */; };
+		51DDFC0F2B8FA9A200DF202B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DDFC0E2B8FA9A200DF202B /* Camera.swift */; };
 		51F008542B8DB98F00745EE9 /* Metal2DApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F008532B8DB98F00745EE9 /* Metal2DApp.swift */; };
 		51F008562B8DB98F00745EE9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F008552B8DB98F00745EE9 /* ContentView.swift */; };
 		51F008582B8DB99100745EE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51F008572B8DB99100745EE9 /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51DDFC0C2B8FA1F900DF202B /* RenderMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderMath.swift; sourceTree = "<group>"; };
+		51DDFC0E2B8FA9A200DF202B /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		51F008502B8DB98F00745EE9 /* Metal2D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal2D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51F008532B8DB98F00745EE9 /* Metal2DApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal2DApp.swift; sourceTree = "<group>"; };
 		51F008552B8DB98F00745EE9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 				51F0086B2B8DBEEC00745EE9 /* GameScene.swift */,
 				51F0086D2B8DBF1100745EE9 /* Node.swift */,
 				51F0086F2B8DC12200745EE9 /* SandboxScene.swift */,
+				51DDFC0E2B8FA9A200DF202B /* Camera.swift */,
 				51F008572B8DB99100745EE9 /* Assets.xcassets */,
 				51F0085C2B8DB99100745EE9 /* Metal2D.entitlements */,
 				51F008592B8DB99100745EE9 /* Preview Content */,
@@ -105,6 +110,7 @@
 		51F008632B8DB9C100745EE9 /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
+				51DDFC0C2B8FA1F900DF202B /* RenderMath.swift */,
 				51F008672B8DBAA700745EE9 /* Renderer.swift */,
 				51F008712B8E69FF00745EE9 /* BasicShaders.metal */,
 				51F008732B8E6CE900745EE9 /* MetalTypes.swift */,
@@ -199,6 +205,8 @@
 				51F008742B8E6CE900745EE9 /* MetalTypes.swift in Sources */,
 				51F0086A2B8DBD5D00745EE9 /* Core.swift in Sources */,
 				51F008542B8DB98F00745EE9 /* Metal2DApp.swift in Sources */,
+				51DDFC0F2B8FA9A200DF202B /* Camera.swift in Sources */,
+				51DDFC0D2B8FA1F900DF202B /* RenderMath.swift in Sources */,
 				51F0086E2B8DBF1100745EE9 /* Node.swift in Sources */,
 				51F008722B8E69FF00745EE9 /* BasicShaders.metal in Sources */,
 			);

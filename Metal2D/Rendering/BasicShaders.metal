@@ -19,10 +19,13 @@ struct VertexOut {
 };
 
 vertex VertexOut basic_vertex(constant VertexIn *vertices [[ buffer(0) ]],
-                           uint vertexID [[ vertex_id ]]) {
+                              constant float3x3 &modelMatrix [[ buffer(1) ]],
+                              constant float3x3 &viewMatrix [[ buffer(2) ]],
+                              uint vertexID [[ vertex_id ]]) {
     
     VertexOut verOut;
-    verOut.position = float4(vertices[vertexID].position, 0, 1);
+    float3 position2d = viewMatrix * modelMatrix * float3(vertices[vertexID].position, 1);
+    verOut.position = float4(position2d, 1);
     verOut.textureCoordinate = vertices[vertexID].textureCoordinate;
     
     return verOut;
