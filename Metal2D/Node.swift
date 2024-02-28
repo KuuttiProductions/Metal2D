@@ -10,55 +10,46 @@ import MetalKit
 class Node {
     
     var name: String
-    var texture: MTLTexture!
+    var texture: String = "TextureOrange"
+    var mesh: MeshType = .Quad
     var render: Bool = true
     
     var position: simd_float2 = simd_float2(0.0, 0.0)
     var rotation: Float = 0.0
     var scale: simd_float2 = simd_float2(1.0, 1.0)
+    var depth: Int = 500
     
     var time: Float = 0.0
     
     var modelConstant = ModelConstant()
-    var modelMatrix: simd_float3x3 {
-        var modelMatrix = matrix_identity_float3x3
+    var modelMatrix: simd_float4x4 {
+        var modelMatrix = matrix_identity_float4x4
         modelMatrix.translate(by: position)
         modelMatrix.rotate(angle: rotation)
         modelMatrix.scale(by: scale)
         return modelMatrix
     }
     
-    var mesh: [Vertex] = [
-        Vertex(position: simd_float2(-1.0, -1.0), textureCoordinate: simd_float2(0, 1)),
-        Vertex(position: simd_float2( 0.0,  1.0), textureCoordinate: simd_float2(0.5, 0)),
-        Vertex(position: simd_float2( 1.0, -1.0), textureCoordinate: simd_float2(1, 1))
-    ]
-    
-    init(name: String) {
+    init(name: String, mesh: MeshType = .Quad) {
         self.name = name
-        loadTexture()
-    }
-    
-    func loadTexture() {
-        let url = Bundle.main.url(forResource: "Texture", withExtension: "png")
-        let textureLoader: MTKTextureLoader = MTKTextureLoader(device: Core.device)
-        
-        texture = try! textureLoader.newTexture(URL: url!)
+        self.mesh = mesh
     }
     
     func update(deltaTime: Float) {
-        tick(deltaTime: deltaTime)
         time += deltaTime
+        tick(deltaTime: deltaTime)
         modelConstant.modelMatrix = modelMatrix
+        modelConstant.depth = simd_clamp(Float(depth) / 1000, 0.0, 1.0)
     }
     
     func tick(deltaTime: Float) {}
     
     func render(renderCommandEncoder: MTLRenderCommandEncoder, deltaTime: Float) {
         if !render { return }
-        renderCommandEncoder.setVertexBytes(&mesh, length: Vertex.stride(3), index: 0)
+        renderCommandEncoder.pushDebugGroup("Rendering \(name)")
         renderCommandEncoder.setVertexBytes(&modelConstant, length: ModelConstant.stride, index: 1)
-        renderCommandEncoder.setFragmentTexture(texture, index: 0)
-        renderCommandEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
+        renderCommandEncoder.setFragmentTexture(TextureLibrary.getTexture(key: texture), index: 0)
+        MeshLibrary.getMesh(key: mesh).draw(renderCommandEncoder: renderCommandEncoder)
+        renderCommandEncoder.popDebugGroup()
     }
 }

@@ -15,5 +15,8 @@ class Core {
     static func initialize(device: MTLDevice) {
         Core.device = device
         Core.commandQueue = device.makeCommandQueue()
+        
+        MeshLibrary.initialize()
+        TextureLibrary.initialize()
     }
 }

@@ -18,14 +18,20 @@ struct VertexOut {
     float2 textureCoordinate;
 };
 
+struct ModelConstant {
+    float4x4 modelMatrix;
+    float depth;
+};
+
 vertex VertexOut basic_vertex(constant VertexIn *vertices [[ buffer(0) ]],
-                              constant float3x3 &modelMatrix [[ buffer(1) ]],
-                              constant float3x3 &viewMatrix [[ buffer(2) ]],
+                              constant ModelConstant &modelConstant [[ buffer(1) ]],
+                              constant float4x4 &viewMatrix [[ buffer(2) ]],
+                              constant float4x4 &projectionMatrix [[ buffer(3) ]],
                               uint vertexID [[ vertex_id ]]) {
     
     VertexOut verOut;
-    float3 position2d = viewMatrix * modelMatrix * float3(vertices[vertexID].position, 1);
-    verOut.position = float4(position2d, 1);
+    float4 worldPosition = modelConstant.modelMatrix * float4(vertices[vertexID].position, modelConstant.depth, 1.0);
+    verOut.position = projectionMatrix * viewMatrix * worldPosition;
     verOut.textureCoordinate = vertices[vertexID].textureCoordinate;
     
     return verOut;

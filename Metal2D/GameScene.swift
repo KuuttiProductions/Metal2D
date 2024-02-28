@@ -11,7 +11,8 @@ class GameScene {
     
     private var children: [Node] = []
     private var camera: Camera!
-    var viewMatrix: simd_float3x3 = matrix_identity_float3x3
+    var viewMatrix: simd_float4x4 = matrix_identity_float4x4
+    var projectionMatrix: simd_float4x4 = matrix_identity_float4x4
     
     func addChild(node: Node) {
         children.append(node)
@@ -24,6 +25,7 @@ class GameScene {
     func update(deltaTime: Float) {
         tick(deltaTime: deltaTime)
         self.viewMatrix = camera.viewMatrix
+        self.projectionMatrix = camera.projectionMatrix
         for child in children {
             child.update(deltaTime: deltaTime)
         }
@@ -32,7 +34,8 @@ class GameScene {
     func tick(deltaTime: Float) {}
     
     func render(renderCommandEncoder: MTLRenderCommandEncoder, deltaTime: Float) {
-        renderCommandEncoder.setVertexBytes(&viewMatrix, length: simd_float3x3.stride, index: 2)
+        renderCommandEncoder.setVertexBytes(&viewMatrix, length: simd_float4x4.stride, index: 2)
+        renderCommandEncoder.setVertexBytes(&projectionMatrix, length: simd_float4x4.stride, index: 3)
         for child in children {
             child.render(renderCommandEncoder: renderCommandEncoder, deltaTime: deltaTime)
         }

@@ -8,15 +8,23 @@
 import MetalKit
 
 class Camera: Node {
-    var viewMatrix: simd_float3x3 {
-        var viewMatrix = matrix_identity_float3x3
+    var orthographicScale: Float = 1.0
+    
+    var viewMatrix: simd_float4x4 {
+        var viewMatrix = matrix_identity_float4x4
         viewMatrix.translate(by: -self.position)
         viewMatrix.rotate(angle: -rotation)
         return viewMatrix
     }
     
-    override init(name: String) {
+    var projectionMatrix: simd_float4x4 {
+        var projectionMatrix = matrix_identity_float4x4
+        projectionMatrix.orthographic(screenSize: Renderer.screenSize, orthographicScale: orthographicScale)
+        return projectionMatrix
+    }
+    
+    init(name: String) {
         super.init(name: name)
-        self.render = false
+        render = false
     }
 }
