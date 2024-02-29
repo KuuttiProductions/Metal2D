@@ -11,6 +11,7 @@ class GameScene {
     
     private var children: [Node] = []
     private var camera: Camera!
+    private var background: Background!
     var viewMatrix: simd_float4x4 = matrix_identity_float4x4
     var projectionMatrix: simd_float4x4 = matrix_identity_float4x4
     
@@ -22,8 +23,13 @@ class GameScene {
         self.camera = camera
     }
     
+    func addBackground(background: Background) {
+        self.background = background
+    }
+    
     func update(deltaTime: Float) {
         tick(deltaTime: deltaTime)
+        self.background.offset = camera.position
         self.viewMatrix = camera.viewMatrix
         self.projectionMatrix = camera.projectionMatrix
         for child in children {

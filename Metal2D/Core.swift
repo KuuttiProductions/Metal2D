@@ -11,10 +11,16 @@ class Core {
     
     static var device: MTLDevice!
     static var commandQueue: MTLCommandQueue!
+    static var library: MTLLibrary!
     
     static func initialize(device: MTLDevice) {
         Core.device = device
         Core.commandQueue = device.makeCommandQueue()
+        Core.library  = device.makeDefaultLibrary()
+        
+        ShaderLibrary.initialize()
+        
+        RenderPipelineStateLibrary.initialize()
         
         MeshLibrary.initialize()
         TextureLibrary.initialize()

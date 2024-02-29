@@ -11,32 +11,12 @@ class Renderer: NSObject {
     static var screenSize: simd_float2!
     
     var scene: GameScene!
-    var defaultRenderPipelineState: MTLRenderPipelineState!
     var depthStencilState: MTLDepthStencilState!
     
     override init() {
         super.init()
         scene = SandboxScene()
-        createRenderPipelineState()
         createDepthStencilState()
-    }
-    
-    func createRenderPipelineState() {
-        let library = Core.device.makeDefaultLibrary()
-        let vertexFunction = library?.makeFunction(name: "basic_vertex")
-        let fragmentFunction = library?.makeFunction(name: "basic_fragment")
-        
-        let descriptor = MTLRenderPipelineDescriptor()
-        descriptor.vertexFunction = vertexFunction
-        descriptor.fragmentFunction = fragmentFunction
-        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
-        descriptor.depthAttachmentPixelFormat = .depth16Unorm
-        
-        do {
-            defaultRenderPipelineState = try Core.device.makeRenderPipelineState(descriptor: descriptor)
-        } catch let error {
-            print(error)
-        }
     }
     
     func createDepthStencilState() {
@@ -59,7 +39,6 @@ extension Renderer: MTKViewDelegate {
         
         let commandBuffer = Core.commandQueue.makeCommandBuffer()
         let renderCommandEncoder = commandBuffer?.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
-        renderCommandEncoder?.setRenderPipelineState(defaultRenderPipelineState)
         renderCommandEncoder?.setDepthStencilState(depthStencilState)
         scene.render(renderCommandEncoder: renderCommandEncoder!, deltaTime: 1.0/60.0)
         renderCommandEncoder?.endEncoding()

@@ -6,22 +6,8 @@
 //
 
 #include <metal_stdlib>
+#import "Shared.metal"
 using namespace metal;
-
-struct VertexIn {
-    float2 position;
-    float2 textureCoordinate;
-};
-
-struct VertexOut {
-    float4 position [[ position, invariant ]];
-    float2 textureCoordinate;
-};
-
-struct ModelConstant {
-    float4x4 modelMatrix;
-    float depth;
-};
 
 vertex VertexOut basic_vertex(constant VertexIn *vertices [[ buffer(0) ]],
                               constant ModelConstant &modelConstant [[ buffer(1) ]],

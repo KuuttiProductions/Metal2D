@@ -9,17 +9,21 @@ import MetalKit
 
 class TextureLibrary {
     
-    static var textures: [String : Texture] = [:]
+    private static var textures: [String : Texture] = [:]
     
     static func initialize() {
-        TextureLibrary.textures.updateValue(Texture("TextureOrange"), forKey: "TextureOrange")
-        TextureLibrary.textures.updateValue(Texture("TextureGray"), forKey: "TextureGray")
+        loadTexture("TextureOrange")
+        loadTexture("TextureGray")
+        loadTexture("BackgroundTexture1")
     }
     
     static func getTexture(key: String)-> MTLTexture {
         return TextureLibrary.textures[key]!.texture
     }
     
+    static func loadTexture(_ name: String) {
+        TextureLibrary.textures.updateValue(Texture(name), forKey: name)
+    }
 }
 
 class Texture {

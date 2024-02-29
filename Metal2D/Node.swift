@@ -39,7 +39,7 @@ class Node {
         time += deltaTime
         tick(deltaTime: deltaTime)
         modelConstant.modelMatrix = modelMatrix
-        modelConstant.depth = simd_clamp(Float(depth) / 1000, 0.0, 1.0)
+        modelConstant.depth = simd_clamp(Float(depth) / 1000, 0.0, 1.0) * 0.9
     }
     
     func tick(deltaTime: Float) {}
@@ -47,6 +47,7 @@ class Node {
     func render(renderCommandEncoder: MTLRenderCommandEncoder, deltaTime: Float) {
         if !render { return }
         renderCommandEncoder.pushDebugGroup("Rendering \(name)")
+        renderCommandEncoder.setRenderPipelineState(RenderPipelineStateLibrary.getPipelineState(key: .Basic))
         renderCommandEncoder.setVertexBytes(&modelConstant, length: ModelConstant.stride, index: 1)
         renderCommandEncoder.setFragmentTexture(TextureLibrary.getTexture(key: texture), index: 0)
         MeshLibrary.getMesh(key: mesh).draw(renderCommandEncoder: renderCommandEncoder)

@@ -14,7 +14,7 @@ enum MeshType {
 
 class MeshLibrary {
     
-    static var meshes: [MeshType : Mesh] = [:]
+    private static var meshes: [MeshType : Mesh] = [:]
     
     static func initialize() {
         MeshLibrary.meshes.updateValue(TriangleMesh(), forKey: .Triangle)
