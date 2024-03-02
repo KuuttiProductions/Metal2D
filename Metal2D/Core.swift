@@ -24,5 +24,7 @@ class Core {
         
         MeshLibrary.initialize()
         TextureLibrary.initialize()
+        
+        Input.initialize()
     }
 }

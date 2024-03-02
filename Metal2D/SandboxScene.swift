@@ -41,7 +41,9 @@ class SandboxScene: GameScene {
     
     override func tick(deltaTime: Float) {
         time += deltaTime
-        camera.position.x += deltaTime / 2
-        camera.position.y = sin(time) / 2
+        camera.position += Input.getMouseMoveDelta() / 1000
+        if Input.mouseMiddle {
+            quad.rotation += deltaTime
+        }
     }
 }

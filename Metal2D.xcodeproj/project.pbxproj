@@ -20,6 +20,7 @@
 		51DFFE992B910852005329D8 /* Shared.metal in Sources */ = {isa = PBXBuildFile; fileRef = 51DFFE982B910852005329D8 /* Shared.metal */; };
 		51DFFE9B2B9108AD005329D8 /* RenderPipelineStateLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DFFE9A2B9108AD005329D8 /* RenderPipelineStateLibrary.swift */; };
 		51DFFE9D2B910929005329D8 /* ShaderLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DFFE9C2B910929005329D8 /* ShaderLibrary.swift */; };
+		51DFFE9F2B924B26005329D8 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DFFE9E2B924B26005329D8 /* Input.swift */; };
 		51F008542B8DB98F00745EE9 /* Metal2DApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F008532B8DB98F00745EE9 /* Metal2DApp.swift */; };
 		51F008562B8DB98F00745EE9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F008552B8DB98F00745EE9 /* ContentView.swift */; };
 		51F008582B8DB99100745EE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 51F008572B8DB99100745EE9 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		51DFFE982B910852005329D8 /* Shared.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shared.metal; sourceTree = "<group>"; };
 		51DFFE9A2B9108AD005329D8 /* RenderPipelineStateLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderPipelineStateLibrary.swift; sourceTree = "<group>"; };
 		51DFFE9C2B910929005329D8 /* ShaderLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShaderLibrary.swift; sourceTree = "<group>"; };
+		51DFFE9E2B924B26005329D8 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		51F008502B8DB98F00745EE9 /* Metal2D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metal2D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51F008532B8DB98F00745EE9 /* Metal2DApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal2DApp.swift; sourceTree = "<group>"; };
 		51F008552B8DB98F00745EE9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				51F0086F2B8DC12200745EE9 /* SandboxScene.swift */,
 				51DDFC0E2B8FA9A200DF202B /* Camera.swift */,
 				51DFFE942B905781005329D8 /* Background.swift */,
+				51DFFE9E2B924B26005329D8 /* Input.swift */,
 				51F008572B8DB99100745EE9 /* Assets.xcassets */,
 				51F0085C2B8DB99100745EE9 /* Metal2D.entitlements */,
 				51F008592B8DB99100745EE9 /* Preview Content */,
@@ -229,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51DFFE9F2B924B26005329D8 /* Input.swift in Sources */,
 				51F008682B8DBAA700745EE9 /* Renderer.swift in Sources */,
 				51DDFC112B8FB2A800DF202B /* Mesh.swift in Sources */,
 				51F008562B8DB98F00745EE9 /* ContentView.swift in Sources */,
