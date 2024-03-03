@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51B99F812B94D0E700CCBD14 /* BackgroundTexture2.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B99F802B94D0E700CCBD14 /* BackgroundTexture2.png */; };
 		51DDFC0D2B8FA1F900DF202B /* RenderMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DDFC0C2B8FA1F900DF202B /* RenderMath.swift */; };
 		51DDFC0F2B8FA9A200DF202B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DDFC0E2B8FA9A200DF202B /* Camera.swift */; };
 		51DDFC112B8FB2A800DF202B /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DDFC102B8FB2A800DF202B /* Mesh.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51B99F802B94D0E700CCBD14 /* BackgroundTexture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundTexture2.png; sourceTree = "<group>"; };
 		51DDFC0C2B8FA1F900DF202B /* RenderMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderMath.swift; sourceTree = "<group>"; };
 		51DDFC0E2B8FA9A200DF202B /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		51DDFC102B8FB2A800DF202B /* Mesh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		51F008752B8E708100745EE9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				51B99F802B94D0E700CCBD14 /* BackgroundTexture2.png */,
 				51DFFE922B9056A2005329D8 /* BackgroundTexture1.png */,
 				51DDFC142B8FBB6300DF202B /* TextureGray.png */,
 				51DDFC152B8FBB6300DF202B /* TextureOrange.png */,
@@ -219,6 +222,7 @@
 			files = (
 				51DFFE932B9056A2005329D8 /* BackgroundTexture1.png in Resources */,
 				51F0085B2B8DB99100745EE9 /* Preview Assets.xcassets in Resources */,
+				51B99F812B94D0E700CCBD14 /* BackgroundTexture2.png in Resources */,
 				51DDFC172B8FBB6400DF202B /* TextureOrange.png in Resources */,
 				51DDFC162B8FBB6400DF202B /* TextureGray.png in Resources */,
 				51F008582B8DB99100745EE9 /* Assets.xcassets in Resources */,

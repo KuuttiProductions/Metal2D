@@ -18,6 +18,7 @@ class Input {
     private static var mouseDX: Float = 0.0
     private static var mouseDY: Float = 0.0
     private static var mouseScrollDelta: Float = 0.0
+    private static var mouseCaptured: Bool = false
     
     static func initialize() {
         addKeyboard()
@@ -45,6 +46,17 @@ class Input {
             guard let keyboard = info.object as? GCKeyboard else { return }
             keyboard.keyboardInput?.keyChangedHandler = { _, _, keyCode, pressed in
                 if pressed {
+                    if keyCode == .escape {
+                        if mouseCaptured {
+                            mouseCaptured = false
+                            NSCursor.unhide()
+                            CGAssociateMouseAndMouseCursorPosition(1)
+                        } else {
+                            mouseCaptured = true
+                            NSCursor.hide()
+                            CGAssociateMouseAndMouseCursorPosition(0)
+                        }
+                    }
                     keys.insert(keyCode)
                 } else {
                     keys.remove(keyCode)

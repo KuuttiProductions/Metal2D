@@ -15,6 +15,7 @@ class TextureLibrary {
         loadTexture("TextureOrange")
         loadTexture("TextureGray")
         loadTexture("BackgroundTexture1")
+        loadTexture("BackgroundTexture2")
     }
     
     static func getTexture(key: String)-> MTLTexture {

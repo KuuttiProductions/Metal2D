@@ -31,7 +31,8 @@ class SandboxScene: GameScene {
         quad.texture = "TextureGray"
         quad.depth = 600
         quad.scale = simd_float2(0.5, 0.5)
-        bg.texture = "BackgroundTexture1"
+        quad.position.y = 2.0
+        bg.texture = "BackgroundTexture2"
         bg.backgroundScale = 2.0
         bg.tint = simd_float3(0.1, 0.3, 1)
         addBackground(background: bg)
@@ -41,9 +42,8 @@ class SandboxScene: GameScene {
     
     override func tick(deltaTime: Float) {
         time += deltaTime
-        camera.position += Input.getMouseMoveDelta() / 1000
         if Input.mouseMiddle {
-            quad.rotation += deltaTime
+            camera.position -= Input.getMouseMoveDelta() / 700
         }
     }
 }
