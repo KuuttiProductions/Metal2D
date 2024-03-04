@@ -16,9 +16,11 @@ class TextureLibrary {
         loadTexture("TextureGray")
         loadTexture("BackgroundTexture1")
         loadTexture("BackgroundTexture2")
+        loadTexture("SpeedTexture")
     }
     
-    static func getTexture(key: String)-> MTLTexture {
+    static func getTexture(key: String!)-> MTLTexture! {
+        if key == nil { return nil }
         return TextureLibrary.textures[key]!.texture
     }
     

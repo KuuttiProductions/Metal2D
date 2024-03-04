@@ -12,6 +12,7 @@ enum ShaderType {
     case Simple_vertex
     case Basic_fragment
     case Background_fragment
+    case Speed_fragment
 }
 
 class ShaderLibrary {
@@ -22,6 +23,7 @@ class ShaderLibrary {
         ShaderLibrary.shaders.updateValue(Shader(name: "basic_fragment"), forKey: .Basic_fragment)
         ShaderLibrary.shaders.updateValue(Shader(name: "simple_vertex"), forKey: .Simple_vertex)
         ShaderLibrary.shaders.updateValue(Shader(name: "background_fragment"), forKey: .Background_fragment)
+        ShaderLibrary.shaders.updateValue(Shader(name: "speed_fragment"), forKey: .Speed_fragment)
     }
     
     static func getShader(key: ShaderType)-> MTLFunction {

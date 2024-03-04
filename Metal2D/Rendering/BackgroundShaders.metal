@@ -9,16 +9,6 @@
 #import "Shared.metal"
 using namespace metal;
 
-vertex VertexOut simple_vertex(constant VertexIn *vertices [[ buffer(0) ]],
-                               uint vertexID [[ vertex_id ]]) {
-    
-    VertexOut verOut;
-    verOut.position = float4(vertices[vertexID].position, 0.95, 1.0);
-    verOut.textureCoordinate = vertices[vertexID].textureCoordinate;
-    
-    return verOut;
-}
-
 constexpr sampler samplerBg = sampler(address::repeat);
 
 fragment half4 background_fragment(VertexOut VerOut [[ stage_in ]],

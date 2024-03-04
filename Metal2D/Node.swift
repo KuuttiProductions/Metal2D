@@ -10,8 +10,9 @@ import MetalKit
 class Node {
     
     var name: String
-    var texture: String = "TextureOrange"
+    var texture: String!
     var mesh: MeshType = .Quad
+    var matColor: simd_float4 = simd_float4(1, 1, 1, 1)
     var render: Bool = true
     
     var position: simd_float2 = simd_float2(0.0, 0.0)
@@ -49,6 +50,7 @@ class Node {
         renderCommandEncoder.pushDebugGroup("Rendering \(name)")
         renderCommandEncoder.setRenderPipelineState(RenderPipelineStateLibrary.getPipelineState(key: .Basic))
         renderCommandEncoder.setVertexBytes(&modelConstant, length: ModelConstant.stride, index: 1)
+        renderCommandEncoder.setFragmentBytes(&matColor, length: simd_float4.stride, index: 0)
         renderCommandEncoder.setFragmentTexture(TextureLibrary.getTexture(key: texture), index: 0)
         MeshLibrary.getMesh(key: mesh).draw(renderCommandEncoder: renderCommandEncoder)
         renderCommandEncoder.popDebugGroup()

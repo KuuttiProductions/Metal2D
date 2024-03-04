@@ -8,10 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var interface = SwiftUIInterface.shared
+    
     var body: some View {
         VStack {
+            HStack {
+                Text("Density: \(interface.density)")
+                    .font(.headline)
+            }
             GameView()
         }
+        .fontDesign(.monospaced)
     }
 }
 

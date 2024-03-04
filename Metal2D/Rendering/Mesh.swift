@@ -44,3 +44,24 @@ class QuadMesh: Mesh {
         ]
     }
 }
+
+class CircleMesh: Mesh {
+    override func addVertices() {
+        let vertexCount: Int = 32
+        let angle: Float = 2 * Float.pi / Float(vertexCount)
+        let a: simd_float2 = simd_float2(0.0, 0.0)
+
+        var last: simd_float2 = simd_float2(1.0, 0.0)
+        for _ in 0..<vertexCount {
+            let b = last
+            var c = last
+            let x = c.x * cos(angle) - c.y * sin(angle)
+            let y = c.x * sin(angle) + c.y * cos(angle)
+            c = normalize(simd_float2(x, y))
+            self.vertices.append(Vertex(position: a, textureCoordinate: simd_float2(0,0)))
+            self.vertices.append(Vertex(position: b, textureCoordinate: simd_float2(0,0)))
+            self.vertices.append(Vertex(position: c, textureCoordinate: simd_float2(0,0)))
+            last = c
+        }
+    }
+}

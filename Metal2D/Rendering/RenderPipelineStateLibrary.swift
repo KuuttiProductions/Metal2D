@@ -10,6 +10,7 @@ import MetalKit
 enum RenderPipelineStateType {
     case Basic
     case Background
+    case Speed
 }
 
 class RenderPipelineStateLibrary {
@@ -19,6 +20,7 @@ class RenderPipelineStateLibrary {
     static func initialize() {
         RenderPipelineStateLibrary.pipelineStates.updateValue(BasicRenderPipelineState(), forKey: .Basic)
         RenderPipelineStateLibrary.pipelineStates.updateValue(BackgroundRenderPipelineState(), forKey: .Background)
+        RenderPipelineStateLibrary.pipelineStates.updateValue(SpeedRenderPipelineState(), forKey: .Speed)
     }
     
     static func getPipelineState(key: RenderPipelineStateType)-> MTLRenderPipelineState {
@@ -55,6 +57,21 @@ class BackgroundRenderPipelineState: RenderPipelineState {
         descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
         descriptor.vertexFunction = ShaderLibrary.getShader(key: .Simple_vertex)
         descriptor.fragmentFunction = ShaderLibrary.getShader(key: .Background_fragment)
+        descriptor.depthAttachmentPixelFormat = .depth16Unorm
+        do {
+            pipelineState = try Core.device.makeRenderPipelineState(descriptor: descriptor)
+        } catch let error {
+            print(error)
+        }
+    }
+}
+
+class SpeedRenderPipelineState: RenderPipelineState {
+    override init() {
+        super.init()
+        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
+        descriptor.vertexFunction = ShaderLibrary.getShader(key: .Simple_vertex)
+        descriptor.fragmentFunction = ShaderLibrary.getShader(key: .Speed_fragment)
         descriptor.depthAttachmentPixelFormat = .depth16Unorm
         do {
             pipelineState = try Core.device.makeRenderPipelineState(descriptor: descriptor)

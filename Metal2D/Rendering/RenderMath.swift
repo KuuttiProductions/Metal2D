@@ -32,7 +32,7 @@ extension matrix_float4x4 {
             simd_float4(x, y, 0, 1)
         )
         
-        self = matrix_multiply(result, self)
+        self = matrix_multiply(self, result)
     }
     
     mutating func scale(by: simd_float2) {
@@ -48,7 +48,7 @@ extension matrix_float4x4 {
             simd_float4(0, 0, 0, 1)
         )
         
-        self = matrix_multiply(result, self)
+        self = matrix_multiply(self, result)
     }
     
     mutating func rotate(angle: Float) {
@@ -66,7 +66,7 @@ extension matrix_float4x4 {
             simd_float4(0,    0,    0, 1)
         )
         
-        self = matrix_multiply(result, self)
+        self = matrix_multiply(self, result)
     }
     
     mutating func orthographic(screenSize: simd_float2, orthographicScale: Float) {
@@ -83,6 +83,6 @@ extension matrix_float4x4 {
             simd_float4(0, 0, 0, 1)
         )
         
-        self = matrix_multiply(result, self)
+        self = matrix_multiply(self, result)
     }
 }
