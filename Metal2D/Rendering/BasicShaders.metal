@@ -47,3 +47,18 @@ vertex VertexOut simple_vertex(constant VertexIn *vertices [[ buffer(0) ]],
     
     return verOut;
 }
+
+vertex VertexOut instanced_vertex(constant VertexIn *vertices [[ buffer(0) ]],
+                                  constant ModelConstant *modelConstants [[ buffer(1) ]],
+                                  constant float4x4 &viewMatrix [[ buffer(2) ]],
+                                  constant float4x4 &projectionMatrix [[ buffer(3) ]],
+                                  uint vertexID [[ vertex_id ]],
+                                  uint instanceID [[ instance_id ]]) {
+    
+    VertexOut verOut;
+    float4 worldPosition = modelConstants[instanceID].modelMatrix * float4(vertices[vertexID].position, modelConstants[instanceID].depth, 1.0);
+    verOut.position = projectionMatrix * viewMatrix * worldPosition;
+    verOut.textureCoordinate = vertices[vertexID].textureCoordinate;
+    
+    return verOut;
+}

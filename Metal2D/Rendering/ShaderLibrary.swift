@@ -10,6 +10,7 @@ import MetalKit
 enum ShaderType {
     case Basic_vertex
     case Simple_vertex
+    case Instanced_vertex
     case Basic_fragment
     case Background_fragment
     case Speed_fragment
@@ -24,6 +25,7 @@ class ShaderLibrary {
         ShaderLibrary.shaders.updateValue(Shader(name: "simple_vertex"), forKey: .Simple_vertex)
         ShaderLibrary.shaders.updateValue(Shader(name: "background_fragment"), forKey: .Background_fragment)
         ShaderLibrary.shaders.updateValue(Shader(name: "speed_fragment"), forKey: .Speed_fragment)
+        ShaderLibrary.shaders.updateValue(Shader(name: "instanced_vertex"), forKey: .Instanced_vertex)
     }
     
     static func getShader(key: ShaderType)-> MTLFunction {

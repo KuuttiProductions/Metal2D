@@ -10,7 +10,6 @@
 		5150A8C12B95FE0100C55F6F /* SpeedShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5150A8C02B95FE0100C55F6F /* SpeedShader.metal */; };
 		5150A8C32B95FF7000C55F6F /* SpeedTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 5150A8C22B95FF7000C55F6F /* SpeedTexture.png */; };
 		5150A8C52B961A7F00C55F6F /* FluidWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150A8C42B961A7F00C55F6F /* FluidWorld.swift */; };
-		5150A8C72B961A8500C55F6F /* FluidParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150A8C62B961A8500C55F6F /* FluidParticle.swift */; };
 		51A191302B96513A0052B8AE /* SwiftUIInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A1912F2B96513A0052B8AE /* SwiftUIInterface.swift */; };
 		51B99F812B94D0E700CCBD14 /* BackgroundTexture2.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B99F802B94D0E700CCBD14 /* BackgroundTexture2.png */; };
 		51DDFC0D2B8FA1F900DF202B /* RenderMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DDFC0C2B8FA1F900DF202B /* RenderMath.swift */; };
@@ -45,7 +44,6 @@
 		5150A8C02B95FE0100C55F6F /* SpeedShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SpeedShader.metal; sourceTree = "<group>"; };
 		5150A8C22B95FF7000C55F6F /* SpeedTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeedTexture.png; sourceTree = "<group>"; };
 		5150A8C42B961A7F00C55F6F /* FluidWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidWorld.swift; sourceTree = "<group>"; };
-		5150A8C62B961A8500C55F6F /* FluidParticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidParticle.swift; sourceTree = "<group>"; };
 		51A1912F2B96513A0052B8AE /* SwiftUIInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIInterface.swift; sourceTree = "<group>"; };
 		51B99F802B94D0E700CCBD14 /* BackgroundTexture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundTexture2.png; sourceTree = "<group>"; };
 		51DDFC0C2B8FA1F900DF202B /* RenderMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderMath.swift; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				5150A8C42B961A7F00C55F6F /* FluidWorld.swift */,
-				5150A8C62B961A8500C55F6F /* FluidParticle.swift */,
 			);
 			path = Physics;
 			sourceTree = "<group>";
@@ -258,7 +255,6 @@
 				51F008562B8DB98F00745EE9 /* ContentView.swift in Sources */,
 				51F008702B8DC12200745EE9 /* SandboxScene.swift in Sources */,
 				51DFFE992B910852005329D8 /* Shared.metal in Sources */,
-				5150A8C72B961A8500C55F6F /* FluidParticle.swift in Sources */,
 				51DDFC132B8FB41700DF202B /* MeshLibrary.swift in Sources */,
 				51F0086C2B8DBEEC00745EE9 /* GameScene.swift in Sources */,
 				51F008662B8DB9D900745EE9 /* GameView.swift in Sources */,

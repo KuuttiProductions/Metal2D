@@ -16,9 +16,9 @@ class Mesh {
     
     func addVertices() {}
     
-    func draw(renderCommandEncoder: MTLRenderCommandEncoder) {
+    func draw(renderCommandEncoder: MTLRenderCommandEncoder, instanceCount: Int = 1) {
         renderCommandEncoder.setVertexBytes(&vertices, length: Vertex.stride(vertices.count), index: 0)
-        renderCommandEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertices.count)
+        renderCommandEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertices.count, instanceCount: instanceCount)
     }
 }
 

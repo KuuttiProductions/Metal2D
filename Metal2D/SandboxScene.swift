@@ -14,7 +14,7 @@ class SandboxScene: GameScene {
     var bg = Background(name: "Background", mesh: .Quad)
     var picker = Node(name: "Picker", mesh: .Circle)
     var camera = Camera(name: "Camera")
-    var fluidSim = FluidWorld(numParticles: 64, bounds: simd_float2(2.0, 2.0))
+    var fluidSim = FluidWorld(numParticles: 256, bounds: simd_float2(2.0, 2.0))
     
     override init() {
         super.init()

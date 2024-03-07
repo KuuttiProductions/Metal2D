@@ -11,6 +11,7 @@ enum RenderPipelineStateType {
     case Basic
     case Background
     case Speed
+    case Instanced
 }
 
 class RenderPipelineStateLibrary {
@@ -21,6 +22,7 @@ class RenderPipelineStateLibrary {
         RenderPipelineStateLibrary.pipelineStates.updateValue(BasicRenderPipelineState(), forKey: .Basic)
         RenderPipelineStateLibrary.pipelineStates.updateValue(BackgroundRenderPipelineState(), forKey: .Background)
         RenderPipelineStateLibrary.pipelineStates.updateValue(SpeedRenderPipelineState(), forKey: .Speed)
+        RenderPipelineStateLibrary.pipelineStates.updateValue(InstancedRenderPipelineState(), forKey: .Instanced)
     }
     
     static func getPipelineState(key: RenderPipelineStateType)-> MTLRenderPipelineState {
@@ -41,6 +43,21 @@ class BasicRenderPipelineState: RenderPipelineState {
         super.init()
         descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
         descriptor.vertexFunction = ShaderLibrary.getShader(key: .Basic_vertex)
+        descriptor.fragmentFunction = ShaderLibrary.getShader(key: .Basic_fragment)
+        descriptor.depthAttachmentPixelFormat = .depth16Unorm
+        do {
+            pipelineState = try Core.device.makeRenderPipelineState(descriptor: descriptor)
+        } catch let error {
+            print(error)
+        }
+    }
+}
+
+class InstancedRenderPipelineState: RenderPipelineState {
+    override init() {
+        super.init()
+        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
+        descriptor.vertexFunction = ShaderLibrary.getShader(key: .Instanced_vertex)
         descriptor.fragmentFunction = ShaderLibrary.getShader(key: .Basic_fragment)
         descriptor.depthAttachmentPixelFormat = .depth16Unorm
         do {
