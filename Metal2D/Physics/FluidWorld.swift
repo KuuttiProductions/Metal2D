@@ -13,10 +13,12 @@ class FluidWorld: Node {
     var sizeY: Float = 2.0
     
     let gravity: simd_float2 = simd_float2(0, -9.81)
-    var radius: Float = 0.3
+    var radius: Float = 0.25
     
-    var idealDensity: Float = 120
-    var pressureMultiplier: Float = 100000
+    var idealDensity: Float = 30
+    var pressureMultiplier: Float = 30
+    
+    var worldQuads: [FluidWorldQuad] = []
     
     var velocities: [simd_float2] = []
     var positions: [simd_float2] = []
@@ -38,6 +40,16 @@ class FluidWorld: Node {
         sizeY = bounds.y
         self.scale = bounds
         
+        for x in 0...Int(bounds.x / radius) {
+            for y in 0...Int(bounds.y / radius) {
+                let halfX = bounds.x / 2
+                let halfY = bounds.y / 2
+                let pos = simd_float2((Float(x)*radius-halfX)*2,
+                                      (Float(y)*radius-halfY)*2)
+                worldQuads.append(FluidWorldQuad(pos: pos))
+            }
+        }
+    
         for _ in 0..<numParticles {
             let positionX = Float.random(in: -sizeX...sizeX)
             let positionY = Float.random(in: -sizeY...sizeY)
@@ -46,6 +58,7 @@ class FluidWorld: Node {
             velocities.append(simd_float2(0, 0))
             densities.append(0)
         }
+        updateQuads()
         
         modelConstantBuffer = Core.device.makeBuffer(length: ModelConstant.stride(positions.count))
         modelConstantBuffer.label = "Particle modelConstants"
@@ -57,8 +70,8 @@ class FluidWorld: Node {
             densities[i] = calculateDensity(samplePoint: x)
         }
         
-        for (i, _) in positions.enumerated() {
-            let pressureForce = calculatePressureForce(particleIndex: i)
+        for (i, x) in positions.enumerated() {
+            let pressureForce = calculatePressureForce(particleIndex: i, particlePos: x)
             let pressureAcceleration = pressureForce / densities[i]
             velocities[i] = pressureAcceleration * deltaTime
         }
@@ -81,6 +94,7 @@ class FluidWorld: Node {
         SwiftUIInterface.shared.density = calculateDensity(samplePoint: picker.position)
         updateModelConstantBuffer()
         picker.scale = simd_float2(radius, radius)
+        updateQuads()
     }
     
     func sharedPressure(particleDensityA: Float, particleDensityB: Float)-> Float {
@@ -108,21 +122,25 @@ class FluidWorld: Node {
     func calculateDensity(samplePoint: simd_float2)-> Float {
         var density: Float = 0.0
         
-        for position in positions {
-            let distance = distance(position, samplePoint)
+        let particlesQuery = queryParticles(position: samplePoint)
+        
+        for i in particlesQuery {
+            let distance = distance(positions[i], samplePoint)
             density += particleMass * smoothingKernel(distance: distance)
         }
         
         return density
     }
     
-    func calculatePressureForce(particleIndex: Int)-> simd_float2 {
+    func calculatePressureForce(particleIndex: Int, particlePos: simd_float2)-> simd_float2 {
         var pressureForce: simd_float2 = simd_float2()
         
-        for (i, x) in positions.enumerated() {
+        let particlesQuery = queryParticles(position: particlePos)
+        
+        for i in particlesQuery {
             if i == particleIndex { continue }
-            let distance = max(distance(x, positions[particleIndex]), 0.001)
-            let direction = (x - positions[particleIndex]) / distance
+            let distance = max(distance(positions[i], positions[particleIndex]), 0.001)
+            let direction = (positions[i] - positions[particleIndex]) / distance
             let slope = smoothingKernelDerivate(distance: distance)
             let density = densities[i]
             let sharedPressure = sharedPressure(particleDensityA: density, particleDensityB: densities[particleIndex])
@@ -130,6 +148,33 @@ class FluidWorld: Node {
         }
         
         return pressureForce
+    }
+    
+    func queryParticles(position: simd_float2)-> [Int] {
+        var particles: [Int] = []
+        for quad in worldQuads {
+            if abs(quad.position.x - position.x) > radius { continue }
+            if abs(quad.position.y - position.y) > radius { continue }
+            particles.append(contentsOf: quad.particles)
+        }
+        
+        return particles
+    }
+    
+    func updateQuads() {
+        for quad in worldQuads {
+            quad.particles = []
+        }
+        for (i, x) in positions.enumerated() {
+            for quad in worldQuads {
+                if abs(quad.position.x - x.x) < radius - 0.1 {
+                    if abs(quad.position.y - x.y) < radius - 0.1 {
+                        quad.particles.append(i)
+                        break
+                    }
+                }
+            }
+        }
     }
     
     func updateModelConstantBuffer() {
@@ -152,5 +197,14 @@ class FluidWorld: Node {
         renderCommandEncoder.setRenderPipelineState(RenderPipelineStateLibrary.getPipelineState(key: .Instanced))
         MeshLibrary.getMesh(key: .Circle).draw(renderCommandEncoder: renderCommandEncoder, instanceCount: positions.count)
         renderCommandEncoder.popDebugGroup()
+    }
+}
+
+class FluidWorldQuad {
+    var position: simd_float2
+    var particles: [Int] = []
+    
+    init(pos: simd_float2) {
+        position = pos
     }
 }
