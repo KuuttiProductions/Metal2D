@@ -16,6 +16,7 @@ struct VertexIn {
 struct VertexOut {
     float4 position [[ position, invariant ]];
     float2 textureCoordinate;
+    float4 color;
 };
 
 struct ModelConstant {
