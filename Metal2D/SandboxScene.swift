@@ -14,16 +14,12 @@ class SandboxScene: GameScene {
     var bg = Background(name: "Background", mesh: .Quad)
     var picker = Node(name: "Picker", mesh: .Circle)
     var camera = Camera(name: "Camera")
-    var fluidSim = FluidWorld(numParticles: 1024, bounds: simd_float2(2.0, 2.0))
     
     override init() {
         super.init()
         addChild(node: bg)
-        addChild(node: fluidSim)
         addChild(node: picker)
         picker.scale = simd_float2(0.5, 0.5)
-        fluidSim.depth = 600
-        fluidSim.picker = picker
         bg.texture = "BackgroundTexture2"
         bg.backgroundScale = 2.0
         bg.tint = simd_float3(0.1, 0.3, 1)
