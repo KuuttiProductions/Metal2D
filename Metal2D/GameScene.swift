@@ -29,7 +29,9 @@ class GameScene {
     
     func update(deltaTime: Float) {
         tick(deltaTime: deltaTime)
-        self.background.offset = camera.position
+        if self.background != nil {
+            self.background.offset = camera.position
+        }
         self.viewMatrix = camera.viewMatrix
         self.projectionMatrix = camera.projectionMatrix
         for child in children {

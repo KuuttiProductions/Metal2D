@@ -27,7 +27,7 @@ struct ClipVertex {
     var fp: FeaturePair
 }
 
-func collide(contacts: [Contact], bodyA: Body, bodyB: Body)-> (Int, [Contact]) {
+func collide(contacts: [Contact], bodyA: Body, bodyB: Body)-> (num: Int, contacts: [Contact]) {
     
     let halfA = 0.5 * bodyA.width
     let halfB = 0.5 * bodyB.width

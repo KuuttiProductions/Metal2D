@@ -7,8 +7,7 @@
 
 import MetalKit
 
-class Node {
-    
+class Node {    
     var name: String
     var texture: String!
     var mesh: MeshType = .Quad

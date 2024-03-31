@@ -13,10 +13,6 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Density: \(interface.density)")
-                    .font(.headline)
-            }
             GameView()
         }
         .fontDesign(.monospaced)

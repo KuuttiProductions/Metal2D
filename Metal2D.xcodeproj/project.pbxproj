@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		51096FD02BB6E41100E58D6E /* Arbiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51096FCF2BB6E41100E58D6E /* Arbiter.swift */; };
 		51096FD22BB6E51700E58D6E /* PhysicsWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51096FD12BB6E51700E58D6E /* PhysicsWorld.swift */; };
-		51096FD42BB6E52400E58D6E /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51096FD32BB6E52400E58D6E /* World.swift */; };
 		51096FD62BB6E57200E58D6E /* Body.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51096FD52BB6E57200E58D6E /* Body.swift */; };
 		51096FD82BB6EABA00E58D6E /* PhysicsMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51096FD72BB6EABA00E58D6E /* PhysicsMath.swift */; };
 		5150A8C12B95FE0100C55F6F /* SpeedShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5150A8C02B95FE0100C55F6F /* SpeedShader.metal */; };
@@ -49,7 +48,6 @@
 /* Begin PBXFileReference section */
 		51096FCF2BB6E41100E58D6E /* Arbiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arbiter.swift; sourceTree = "<group>"; };
 		51096FD12BB6E51700E58D6E /* PhysicsWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsWorld.swift; sourceTree = "<group>"; };
-		51096FD32BB6E52400E58D6E /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		51096FD52BB6E57200E58D6E /* Body.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Body.swift; sourceTree = "<group>"; };
 		51096FD72BB6EABA00E58D6E /* PhysicsMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsMath.swift; sourceTree = "<group>"; };
 		5150A8C02B95FE0100C55F6F /* SpeedShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SpeedShader.metal; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 		51F008472B8DB98F00745EE9 = {
 			isa = PBXGroup;
 			children = (
-				51096FD32BB6E52400E58D6E /* World.swift */,
 				51F008522B8DB98F00745EE9 /* Metal2D */,
 				51F008512B8DB98F00745EE9 /* Products */,
 			);
@@ -294,7 +291,6 @@
 				51DFFE952B905781005329D8 /* Background.swift in Sources */,
 				51F0086E2B8DBF1100745EE9 /* Node.swift in Sources */,
 				51F008722B8E69FF00745EE9 /* BasicShaders.metal in Sources */,
-				51096FD42BB6E52400E58D6E /* World.swift in Sources */,
 				5150A8C52B961A7F00C55F6F /* FluidWorld.swift in Sources */,
 				51096FD82BB6EABA00E58D6E /* PhysicsMath.swift in Sources */,
 			);
