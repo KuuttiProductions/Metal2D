@@ -13,7 +13,7 @@ class PhysicsWorld {
     var arbiters: [ArbiterKey : Arbiter] = [:]
     var gravity = simd_float2(0, -9.81)
     
-    var iterations: Int = 1
+    var iterations: Int = 4
     static var accumulateImpulses: Bool = false
     static var warmStarting: Bool = false
     static var positionCorrection: Bool = false
@@ -34,11 +34,10 @@ class PhysicsWorld {
                 let key = ArbiterKey(bodyA: ba, bodyB: bb)
                 
                 if newArb.numContacts > 0 {
-                    if arbiters[key] == nil {
-                        let iter = arbiters[key]
-                        arbiters.updateValue(newArb, forKey: key)
+                    if let iter = arbiters[key] {
+                        iter.update(newContacts: newArb.contacts, numNewContacts: newArb.numContacts)
                     } else {
-                        
+                        arbiters.updateValue(newArb, forKey: key)
                     }
                 } else {
                     arbiters.removeValue(forKey: key)
@@ -61,6 +60,18 @@ class PhysicsWorld {
             
             b.velocity += dt * (gravity + b.invMass * b.force)
             b.angularVelocity += dt * b.invInertia * b.torque
+        }
+        
+        // Pre-steps
+        for arb in arbiters {
+            arb.value.preStep(invDt: inv_dt)
+        }
+        
+        //Perform iterations
+        for _ in 0..<iterations {
+            for arb in arbiters {
+                arb.value.applyImpulse()
+            }
         }
         
         //Integrate velocities
