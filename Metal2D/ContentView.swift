@@ -13,9 +13,15 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            Text(String(interface.value1))
+            Text(String(interface.value2))
+            Text(String(interface.value3))
+            Text(String(interface.value4))
+            Text(String(interface.value5))
             GameView()
         }
         .fontDesign(.monospaced)
+        .font(.largeTitle)
     }
 }
 

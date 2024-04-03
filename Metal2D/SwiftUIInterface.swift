@@ -13,5 +13,9 @@ class SwiftUIInterface {
     
     static var shared = SwiftUIInterface()
 
-    var density: Float = 0.0
+    var value1: Float = 0
+    var value2: Float = 0
+    var value3: Float = 0
+    var value4: Float = 0
+    var value5: Float = 0
 }

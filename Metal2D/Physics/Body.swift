@@ -29,6 +29,7 @@ class Body: Node {
     func set(w: simd_float2, m: Float) {
         width = w
         mass = m
+        self.scale = w * 0.5
         
         if mass < Float.greatestFiniteMagnitude {
             invMass = 1.0 / mass

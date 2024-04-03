@@ -18,6 +18,8 @@ struct Contact {
     var massTangent: Float = 0.0
     var bias: Float = 0.0
     var feature: FeaturePair = FeaturePair()
+    var r1: simd_float2 = simd_float2(0, 0)
+    var r2: simd_float2 = simd_float2(0, 0)
 }
 
 struct FeaturePair {
@@ -72,21 +74,23 @@ class Arbiter {
     
     func update(newContacts: [Contact], numNewContacts: Int) {
         
-        var mergedContacts: [Contact] = []
+        var mergedContacts: [Contact] = [Contact(), Contact()]
         
         for i in 0..<numNewContacts {
             
             let cNew: Contact = newContacts[i]
             var k: Int = -1
+            SwiftUIInterface.shared.value2 = 0.0
             for j in 0..<numContacts {
                 let cOld: Contact = contacts[j]
                 if cOld.feature.value == cNew.feature.value {
+                    SwiftUIInterface.shared.value2 = 1.0
                     k = j; break
                 }
             }
             
             if k > -1 {
-                var c = Contact()
+                var c = mergedContacts[i]
                 let cOld = contacts[k]
                 if PhysicsWorld.warmStarting {
                     c.pn = cOld.pn
@@ -97,8 +101,7 @@ class Arbiter {
                     c.pt = 0.0
                     c.pnb = 0.0
                 }
-                mergedContacts.append(c)
-                
+                mergedContacts[i] = c
             } else {
                 mergedContacts[i] = newContacts[i]
             }
@@ -139,22 +142,83 @@ class Arbiter {
             
             c.bias = -k_biasFactor * invDt * min(c.separation + k_allowedPenetration, 0.0)
 
-//            if PhysicsWorld.accumulateImpulses {
-//                var p: simd_float2 = c.pn * c.normal + c.pt * tangent
-//                
-//                let cA = simd_float2(cross(r1, p).x, cross(r1, p).y)
-//                bodyA.velocity -= bodyA.invMass * p
-//                bodyA.angularVelocity -= bodyA.invInertia * cA
-//                
-//                bodyB.velocity -= bodyB.invMass * p
-//                bodyB.angularVelocity -= bodyB.invInertia * cross(r1, p)
-//            }
-            
-            // 2D CROSS PRODUCTS!!
+            if PhysicsWorld.accumulateImpulses {
+                let p: simd_float2 = c.pn * c.normal + c.pt * tangent
+                
+                bodyA.velocity -= bodyA.invMass * p
+                bodyA.angularVelocity -= bodyA.invInertia * cross(r1, p)
+                
+                bodyB.velocity -= bodyB.invMass * p
+                bodyB.angularVelocity -= bodyB.invInertia * cross(r1, p)
+            }
         }
     }
     
     func applyImpulse() {
+        let b1 = bodyA!
+        let b2 = bodyB!
         
+        for i in 0..<numContacts {
+            var c = contacts[i]
+            
+            c.r1 = c.position - b1.position
+            c.r2 = c.position - b2.position
+            
+            // Relative velocity at contact
+            var dv: simd_float2 = b2.velocity + cross(b2.angularVelocity, c.r2) - b1.velocity + cross(b1.angularVelocity, c.r1)
+            
+            //Compute normal impulse
+            let vn = dot(dv, c.normal)
+            
+            var dPn = c.massNormal * (-vn + c.bias)
+            
+            if PhysicsWorld.accumulateImpulses {
+                // Clamp the accumulated impulse
+                let pn0 = c.pn
+                c.pn = max(pn0 + dPn, 0.0)
+                dPn = c.pn - pn0
+            } else {
+                dPn = max(dPn, 0.0)
+            }
+        
+            // Apply contact impulse
+            let pn = dPn * c.normal
+            
+            b1.velocity -= b1.invMass * pn
+            b1.angularVelocity += b1.invMass * cross(c.r1, pn)
+            
+            b2.velocity -= b2.invMass * pn
+            b2.angularVelocity += b2.invMass * cross(c.r2, pn)
+            
+            //  Relative velocity at contact (again)
+            dv = b2.velocity + cross(b2.angularVelocity, c.r2) - b1.velocity + cross(b1.angularVelocity, c.r1)
+            
+            let tangent = cross(c.normal, 1.0)
+            let vt = dot(dv, tangent)
+            var dPt = c.massTangent * -vt
+            
+            if PhysicsWorld.accumulateImpulses {
+                // Compute friction impulse
+                let maxPt = friction * c.pn
+                
+                // Clamp friction
+                let pt0 = c.pt
+                c.pt = simd_clamp(pt0 + dPt, -maxPt, maxPt)
+                dPt = c.pt - pt0
+            } else {
+                let maxPt = friction * dPn
+                dPt = simd_clamp(dPt, -maxPt, maxPt)
+            }
+            
+            let pt = dPt * tangent
+            
+            b1.velocity -= b1.invMass * pt
+            b1.angularVelocity += b1.invMass * cross(c.r1, pt)
+            
+            b2.velocity -= b2.invMass * pt
+            b2.angularVelocity += b2.invMass * cross(c.r2, pt)
+            
+            contacts[i] = c
+        }
     }
 }

@@ -11,6 +11,9 @@
 		51096FD22BB6E51700E58D6E /* PhysicsWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51096FD12BB6E51700E58D6E /* PhysicsWorld.swift */; };
 		51096FD62BB6E57200E58D6E /* Body.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51096FD52BB6E57200E58D6E /* Body.swift */; };
 		51096FD82BB6EABA00E58D6E /* PhysicsMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51096FD72BB6EABA00E58D6E /* PhysicsMath.swift */; };
+		510A70722BBD8E6B00B0D6FD /* Dirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 510A70712BBD8E6B00B0D6FD /* Dirt.png */; };
+		510A70752BBDAB6800B0D6FD /* cobblestone.png in Resources */ = {isa = PBXBuildFile; fileRef = 510A70732BBDAB6800B0D6FD /* cobblestone.png */; };
+		510A70762BBDAB6800B0D6FD /* pumpkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 510A70742BBDAB6800B0D6FD /* pumpkin.png */; };
 		5150A8C12B95FE0100C55F6F /* SpeedShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5150A8C02B95FE0100C55F6F /* SpeedShader.metal */; };
 		5150A8C32B95FF7000C55F6F /* SpeedTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 5150A8C22B95FF7000C55F6F /* SpeedTexture.png */; };
 		5150A8C52B961A7F00C55F6F /* FluidWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150A8C42B961A7F00C55F6F /* FluidWorld.swift */; };
@@ -50,6 +53,9 @@
 		51096FD12BB6E51700E58D6E /* PhysicsWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsWorld.swift; sourceTree = "<group>"; };
 		51096FD52BB6E57200E58D6E /* Body.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Body.swift; sourceTree = "<group>"; };
 		51096FD72BB6EABA00E58D6E /* PhysicsMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsMath.swift; sourceTree = "<group>"; };
+		510A70712BBD8E6B00B0D6FD /* Dirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dirt.png; sourceTree = "<group>"; };
+		510A70732BBDAB6800B0D6FD /* cobblestone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cobblestone.png; sourceTree = "<group>"; };
+		510A70742BBDAB6800B0D6FD /* pumpkin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pumpkin.png; sourceTree = "<group>"; };
 		5150A8C02B95FE0100C55F6F /* SpeedShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SpeedShader.metal; sourceTree = "<group>"; };
 		5150A8C22B95FF7000C55F6F /* SpeedTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeedTexture.png; sourceTree = "<group>"; };
 		5150A8C42B961A7F00C55F6F /* FluidWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidWorld.swift; sourceTree = "<group>"; };
@@ -180,6 +186,9 @@
 		51F008752B8E708100745EE9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				510A70732BBDAB6800B0D6FD /* cobblestone.png */,
+				510A70742BBDAB6800B0D6FD /* pumpkin.png */,
+				510A70712BBD8E6B00B0D6FD /* Dirt.png */,
 				5150A8C22B95FF7000C55F6F /* SpeedTexture.png */,
 				51B99F802B94D0E700CCBD14 /* BackgroundTexture2.png */,
 				51DFFE922B9056A2005329D8 /* BackgroundTexture1.png */,
@@ -249,10 +258,13 @@
 			files = (
 				51DFFE932B9056A2005329D8 /* BackgroundTexture1.png in Resources */,
 				51F0085B2B8DB99100745EE9 /* Preview Assets.xcassets in Resources */,
+				510A70762BBDAB6800B0D6FD /* pumpkin.png in Resources */,
+				510A70722BBD8E6B00B0D6FD /* Dirt.png in Resources */,
 				51B99F812B94D0E700CCBD14 /* BackgroundTexture2.png in Resources */,
 				51DDFC172B8FBB6400DF202B /* TextureOrange.png in Resources */,
 				51DDFC162B8FBB6400DF202B /* TextureGray.png in Resources */,
 				5150A8C32B95FF7000C55F6F /* SpeedTexture.png in Resources */,
+				510A70752BBDAB6800B0D6FD /* cobblestone.png in Resources */,
 				51F008582B8DB99100745EE9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

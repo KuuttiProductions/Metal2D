@@ -30,6 +30,7 @@ struct GameView: NSViewRepresentable {
         mtkView.clearColor = MTLClearColor(red: 0.3, green: 0.5, blue: 1.0, alpha: 1.0)
         mtkView.delegate = context.coordinator
         mtkView.depthStencilPixelFormat = .depth16Unorm
+        mtkView.colorPixelFormat = .bgra8Unorm_srgb
         
         return mtkView
     }

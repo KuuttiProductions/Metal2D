@@ -100,7 +100,6 @@ class FluidWorld: Node {
             velocities[i] = velocity
             positions[i] = position
         }
-        SwiftUIInterface.shared.density = calculateDensity(samplePoint: picker.position)
         updateBuffers()
         picker.scale = simd_float2(radius, radius)
         updateQuads()

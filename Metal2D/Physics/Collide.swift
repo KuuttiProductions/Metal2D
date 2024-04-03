@@ -25,6 +25,12 @@ enum EdgeNumbers: Int {
 struct ClipVertex {
     var v: simd_float2
     var fp: FeaturePair
+    
+    init() {
+        self.v = simd_float2(0, 0)
+        self.fp = FeaturePair()
+        self.fp.value = 0
+    }
 }
 
 func collide(contacts: [Contact], bodyA: Body, bodyB: Body)-> (num: Int, contacts: [Contact]) {
@@ -35,8 +41,8 @@ func collide(contacts: [Contact], bodyA: Body, bodyB: Body)-> (num: Int, contact
     let posA = bodyA.position
     let posB = bodyB.position
     
-    let rotA = simd_float2x2.rotation(angle: bodyA.rotation)
-    let rotB = simd_float2x2.rotation(angle: bodyB.rotation)
+    let rotA = rotation(angle: bodyA.rotation)
+    let rotB = rotation(angle: bodyB.rotation)
     
     let rotAT = rotA.transpose
     let rotBT = rotB.transpose
@@ -46,9 +52,9 @@ func collide(contacts: [Contact], bodyA: Body, bodyB: Body)-> (num: Int, contact
     let dB: simd_float2 = rotBT * dp
     
     let c = rotAT * rotB //Transforms anything from B's local space to A's local space
-    let absC = simd_float2x2.abs(c)
+    let absC = abs(c)
     let absCT = absC.transpose
-    
+
     // Box A faces
     let faceA = abs(dA) - halfA - absC  * halfB
     if faceA.x > 0.0 || faceA.y > 0.0 {
@@ -185,16 +191,21 @@ func collide(contacts: [Contact], bodyA: Body, bodyB: Body)-> (num: Int, contact
 
 func clipSegmentToLine(vIn: [ClipVertex], normal: simd_float2, offset: Float, clipEdge: Int)-> 
 (val: Int, clip: [ClipVertex]) {
-    var clip: [ClipVertex] = []
+    var clip: [ClipVertex] = [ClipVertex(), ClipVertex()]
+    // Start with no output points
     var numOut = 0
     
+    // Calculate distances of end points to the line line
     let distance0 = dot(normal, vIn[0].v) - offset
     let distance1 = dot(normal, vIn[1].v) - offset
     
-    if (distance0 <= 0.0) { clip[numOut + 1] = vIn[0]; numOut += 1 }
-    if (distance0 <= 0.0) { clip[numOut + 1] = vIn[0]; numOut += 1 }
+    // If points are behind the plane
+    if (distance0 <= 0.0) { clip[numOut] = vIn[0]; numOut += 1 }
+    if (distance1 <= 0.0) { clip[numOut] = vIn[1]; numOut += 1 }
     
+    // If the points are on different sides of the plane
     if (distance0 * distance1 < 0.0) {
+        // Find intersection point of edge and plane
         let interp: Float = distance0 / (distance0 - distance1)
         clip[numOut].v = vIn[0].v + interp * (vIn[1].v - vIn[0].v)
         if distance0 > 0.0 {
@@ -216,7 +227,7 @@ func computeIncidentEdge(half: simd_float2,
                          pos: simd_float2,
                          rot: simd_float2x2,
                          normal: simd_float2)-> [ClipVertex] {
-    var c: [ClipVertex] = []
+    var c: [ClipVertex] = [ClipVertex(), ClipVertex()]
     
     let rotT: simd_float2x2 = rot.transpose
     let n = -(rotT * normal)

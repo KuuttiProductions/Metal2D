@@ -11,20 +11,23 @@ class PhysicsWorld {
     
     var bodies: [Body] = []
     var arbiters: [ArbiterKey : Arbiter] = [:]
-    var gravity = simd_float2(0, -9.81)
+    var gravity = simd_float2(0, -2.0)
     
     var iterations: Int = 4
-    static var accumulateImpulses: Bool = false
-    static var warmStarting: Bool = false
-    static var positionCorrection: Bool = false
+    static var accumulateImpulses: Bool = true
+    static var warmStarting: Bool = true
+    static var positionCorrection: Bool = true
     
     func addBody(body: Body) {
         self.bodies.append(body)
     }
     
     func broadPhase() {
-        // O(n^2) Broadphase. AABB implementation would be advantageous!
-        for (i, ba) in bodies.enumerated() {
+        
+        // O(n^2) Broad-phase. AABB implementation would be advantageous!
+        for i in 0..<bodies.count {
+            let ba = bodies[i]
+            
             for x in i+1..<bodies.count {
                 let bb = bodies[x]
                 
@@ -64,23 +67,24 @@ class PhysicsWorld {
         
         // Pre-steps
         for arb in arbiters {
-            arb.value.preStep(invDt: inv_dt)
+            SwiftUIInterface.shared.value1 = Float(arb.value.contacts[0].separation)
+            //arb.value.preStep(invDt: inv_dt)
         }
-        
-        //Perform iterations
-        for _ in 0..<iterations {
-            for arb in arbiters {
-                arb.value.applyImpulse()
-            }
-        }
-        
-        //Integrate velocities
-        for b in bodies {
-            b.position += dt * b.velocity
-            b.rotation += dt * b.angularVelocity
-            
-            b.force = simd_float2(0, 0)
-            b.torque = 0.0
-        }
+//        
+//        //Perform iterations
+//        for _ in 0..<iterations {
+//            for arb in arbiters {
+//                arb.value.applyImpulse()
+//            }
+//        }
+//        
+//        //Integrate velocities
+//        for b in bodies {
+//            b.position += dt * b.velocity
+//            b.rotation += dt * b.angularVelocity
+//            
+//            b.force = simd_float2(0, 0)
+//            b.torque = 0.0
+//        }
     }
 }

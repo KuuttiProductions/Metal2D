@@ -41,7 +41,7 @@ class RenderPipelineState {
 class BasicRenderPipelineState: RenderPipelineState {
     override init() {
         super.init()
-        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
+        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm_srgb
         descriptor.vertexFunction = ShaderLibrary.getShader(key: .Basic_vertex)
         descriptor.fragmentFunction = ShaderLibrary.getShader(key: .Basic_fragment)
         descriptor.depthAttachmentPixelFormat = .depth16Unorm
@@ -56,7 +56,7 @@ class BasicRenderPipelineState: RenderPipelineState {
 class InstancedRenderPipelineState: RenderPipelineState {
     override init() {
         super.init()
-        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
+        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm_srgb
         descriptor.vertexFunction = ShaderLibrary.getShader(key: .Instanced_vertex)
         descriptor.fragmentFunction = ShaderLibrary.getShader(key: .Basic_fragment)
         descriptor.depthAttachmentPixelFormat = .depth16Unorm
@@ -71,7 +71,7 @@ class InstancedRenderPipelineState: RenderPipelineState {
 class BackgroundRenderPipelineState: RenderPipelineState {
     override init() {
         super.init()
-        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
+        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm_srgb
         descriptor.vertexFunction = ShaderLibrary.getShader(key: .Simple_vertex)
         descriptor.fragmentFunction = ShaderLibrary.getShader(key: .Background_fragment)
         descriptor.depthAttachmentPixelFormat = .depth16Unorm
@@ -86,7 +86,7 @@ class BackgroundRenderPipelineState: RenderPipelineState {
 class SpeedRenderPipelineState: RenderPipelineState {
     override init() {
         super.init()
-        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
+        descriptor.colorAttachments[0].pixelFormat = .bgra8Unorm_srgb
         descriptor.vertexFunction = ShaderLibrary.getShader(key: .Simple_vertex)
         descriptor.fragmentFunction = ShaderLibrary.getShader(key: .Speed_fragment)
         descriptor.depthAttachmentPixelFormat = .depth16Unorm
