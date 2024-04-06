@@ -63,7 +63,7 @@ func collide(contacts: [Contact], bodyA: Body, bodyB: Body)-> (num: Int, contact
     
     // Box B faces
     let faceB = abs(dB) - absCT * halfA - halfB
-    if faceB.x > 0.0 || faceA.y > 0.0 {
+    if faceB.x > 0.0 || faceB.y > 0.0 {
         return (0, [])
     }
     
@@ -167,6 +167,7 @@ func collide(contacts: [Contact], bodyA: Body, bodyB: Body)-> (num: Int, contact
     
     var numContacts = 0
     var contactsOut = contacts
+    
     for i in 0..<2 {
         let separation: Float = dot(frontNormal, clipPoints2[i].v) - front
         
@@ -191,6 +192,7 @@ func collide(contacts: [Contact], bodyA: Body, bodyB: Body)-> (num: Int, contact
 
 func clipSegmentToLine(vIn: [ClipVertex], normal: simd_float2, offset: Float, clipEdge: Int)-> 
 (val: Int, clip: [ClipVertex]) {
+    
     var clip: [ClipVertex] = [ClipVertex(), ClipVertex()]
     // Start with no output points
     var numOut = 0
@@ -205,9 +207,11 @@ func clipSegmentToLine(vIn: [ClipVertex], normal: simd_float2, offset: Float, cl
     
     // If the points are on different sides of the plane
     if (distance0 * distance1 < 0.0) {
+        
         // Find intersection point of edge and plane
         let interp: Float = distance0 / (distance0 - distance1)
         clip[numOut].v = vIn[0].v + interp * (vIn[1].v - vIn[0].v)
+        
         if distance0 > 0.0 {
             clip[numOut].fp = vIn[0].fp
             clip[numOut].fp.e.inEdge1 = clipEdge
@@ -247,7 +251,7 @@ func computeIncidentEdge(half: simd_float2,
             c[0].fp.e.inEdge2 = EdgeNumbers.EDGE1.rawValue
             c[0].fp.e.outEdge2 = EdgeNumbers.EDGE2.rawValue
             
-            c[1].v = simd_float2(-half.x, half.y)
+            c[1].v = simd_float2(-half.x, -half.y)
             c[1].fp.e.inEdge2 = EdgeNumbers.EDGE2.rawValue
             c[1].fp.e.outEdge2 = EdgeNumbers.EDGE3.rawValue
         }

@@ -8,6 +8,7 @@
 import MetalKit
 
 class Node {    
+    var uuid: String
     var name: String
     var texture: String!
     var mesh: MeshType = .Quad
@@ -33,6 +34,7 @@ class Node {
     init(name: String, mesh: MeshType = .Quad) {
         self.name = name
         self.mesh = mesh
+        self.uuid = UUID().uuidString
     }
     
     func update(deltaTime: Float) {

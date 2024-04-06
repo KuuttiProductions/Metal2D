@@ -57,6 +57,12 @@ class Input {
                             CGAssociateMouseAndMouseCursorPosition(0)
                         }
                     }
+                    if keyCode == .keyP {
+                        NSApp.presentationOptions = [ .hideDock, .hideMenuBar]
+                        let window = NSApp.keyWindow!
+                        window.styleMask = .borderless
+                        window.setFrame(window.screen!.frame, display: true)
+                    }
                     keys.insert(keyCode)
                 } else {
                     keys.remove(keyCode)

@@ -11,10 +11,10 @@ class PhysicsWorld {
     
     var bodies: [Body] = []
     var arbiters: [ArbiterKey : Arbiter] = [:]
-    var gravity = simd_float2(0, -2.0)
+    var gravity = simd_float2(0, -9.81)
     
-    var iterations: Int = 4
-    static var accumulateImpulses: Bool = true
+    var iterations: Int = 1
+    static var accumulateImpulses: Bool = false
     static var warmStarting: Bool = true
     static var positionCorrection: Bool = true
     
@@ -31,7 +31,7 @@ class PhysicsWorld {
             for x in i+1..<bodies.count {
                 let bb = bodies[x]
                 
-                if ba.invMass == 0.0 || bb.invMass == 0.0 { continue }
+                //if ba.invMass == 0.0 || bb.invMass == 0.0 { continue }
                 
                 let newArb = Arbiter(bodyA: ba, bodyB: bb)
                 let key = ArbiterKey(bodyA: ba, bodyB: bb)
@@ -40,7 +40,7 @@ class PhysicsWorld {
                     if let iter = arbiters[key] {
                         iter.update(newContacts: newArb.contacts, numNewContacts: newArb.numContacts)
                     } else {
-                        arbiters.updateValue(newArb, forKey: key)
+                        arbiters[key] = newArb
                     }
                 } else {
                     arbiters.removeValue(forKey: key)
@@ -67,24 +67,27 @@ class PhysicsWorld {
         
         // Pre-steps
         for arb in arbiters {
-            SwiftUIInterface.shared.value1 = Float(arb.value.contacts[0].separation)
-            //arb.value.preStep(invDt: inv_dt)
+            for c in arb.value.contacts {
+                Debug.positions.append(c.position)
+                Debug.normals.append(c.normal)
+            }
+            arb.value.preStep(invDt: inv_dt)
         }
-//        
-//        //Perform iterations
-//        for _ in 0..<iterations {
-//            for arb in arbiters {
-//                arb.value.applyImpulse()
-//            }
-//        }
-//        
-//        //Integrate velocities
-//        for b in bodies {
-//            b.position += dt * b.velocity
-//            b.rotation += dt * b.angularVelocity
-//            
-//            b.force = simd_float2(0, 0)
-//            b.torque = 0.0
-//        }
+        
+        //Perform iterations
+        for _ in 0..<iterations {
+            for arb in arbiters {
+                arb.value.applyImpulse()
+            }
+        }
+        
+        //Integrate velocities
+        for b in bodies {
+            b.position += dt * b.velocity
+            b.rotation += dt * b.angularVelocity
+            
+            b.force = simd_float2(0, 0)
+            b.torque = 0.0
+        }
     }
 }

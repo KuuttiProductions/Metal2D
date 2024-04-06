@@ -14,6 +14,7 @@
 		510A70722BBD8E6B00B0D6FD /* Dirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 510A70712BBD8E6B00B0D6FD /* Dirt.png */; };
 		510A70752BBDAB6800B0D6FD /* cobblestone.png in Resources */ = {isa = PBXBuildFile; fileRef = 510A70732BBDAB6800B0D6FD /* cobblestone.png */; };
 		510A70762BBDAB6800B0D6FD /* pumpkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 510A70742BBDAB6800B0D6FD /* pumpkin.png */; };
+		510A70782BBEF18D00B0D6FD /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A70772BBEF18D00B0D6FD /* Debug.swift */; };
 		5150A8C12B95FE0100C55F6F /* SpeedShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 5150A8C02B95FE0100C55F6F /* SpeedShader.metal */; };
 		5150A8C32B95FF7000C55F6F /* SpeedTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 5150A8C22B95FF7000C55F6F /* SpeedTexture.png */; };
 		5150A8C52B961A7F00C55F6F /* FluidWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150A8C42B961A7F00C55F6F /* FluidWorld.swift */; };
@@ -56,6 +57,7 @@
 		510A70712BBD8E6B00B0D6FD /* Dirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dirt.png; sourceTree = "<group>"; };
 		510A70732BBDAB6800B0D6FD /* cobblestone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cobblestone.png; sourceTree = "<group>"; };
 		510A70742BBDAB6800B0D6FD /* pumpkin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pumpkin.png; sourceTree = "<group>"; };
+		510A70772BBEF18D00B0D6FD /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		5150A8C02B95FE0100C55F6F /* SpeedShader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SpeedShader.metal; sourceTree = "<group>"; };
 		5150A8C22B95FF7000C55F6F /* SpeedTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeedTexture.png; sourceTree = "<group>"; };
 		5150A8C42B961A7F00C55F6F /* FluidWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidWorld.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				51DDFC182B8FBB7F00DF202B /* TextureLibrary.swift */,
 				51DFFE9A2B9108AD005329D8 /* RenderPipelineStateLibrary.swift */,
 				51DFFE9C2B910929005329D8 /* ShaderLibrary.swift */,
+				510A70772BBEF18D00B0D6FD /* Debug.swift */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51DFFE9F2B924B26005329D8 /* Input.swift in Sources */,
+				510A70782BBEF18D00B0D6FD /* Debug.swift in Sources */,
 				51096FD02BB6E41100E58D6E /* Arbiter.swift in Sources */,
 				51F008682B8DBAA700745EE9 /* Renderer.swift in Sources */,
 				51DDFC112B8FB2A800DF202B /* Mesh.swift in Sources */,

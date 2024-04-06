@@ -47,5 +47,6 @@ class GameScene {
         for child in children {
             child.render(renderCommandEncoder: renderCommandEncoder, deltaTime: deltaTime)
         }
+        Debug.render(renderCommandEncoder: renderCommandEncoder)
     }
 }

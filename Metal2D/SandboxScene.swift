@@ -33,7 +33,7 @@ class SandboxScene: GameScene {
         quad1.matColor = simd_float4(1, 0, 0, 1)
         quad2.matColor = simd_float4(0, 0, 1, 1)
         floor.matColor = simd_float4(0, 1, 0, 1)
-        quad1.position = simd_float2(0.1, 0.1)
+        quad1.position = simd_float2(0.1, 1.1)
         floor.position.y = -2.0
         bg.texture = "Dirt"
         quad1.texture = "cobblestone"
@@ -48,7 +48,7 @@ class SandboxScene: GameScene {
     override func tick(deltaTime: Float) {
         time += deltaTime
         physWorld.step(dt: deltaTime)
-        quad1.position.x = sin(time / 2) * 2
+        //quad1.position.x = sin(time / 2) * 2
         if Input.mouseRight {
             camera.position -= Input.getMouseMoveDelta() / 500
         }

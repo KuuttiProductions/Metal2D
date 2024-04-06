@@ -23,7 +23,7 @@ struct Contact {
 }
 
 struct FeaturePair {
-    var value: Int = 0
+    var value: Int!
     struct Edges {
         var inEdge1: Int
         var outEdge1: Int
@@ -35,21 +35,19 @@ struct FeaturePair {
 
 struct ArbiterKey: Hashable {
     static func == (lhs: ArbiterKey, rhs: ArbiterKey) -> Bool {
-        if lhs.bodyA.name == rhs.bodyA.name && lhs.bodyB.name == rhs.bodyB.name {
+        if lhs.bodyA == rhs.bodyA && lhs.bodyB == rhs.bodyB {
             return true
         } else {
             return false
         }
     }
     
-    func hash(into hasher: inout Hasher) {}
-    
-    var bodyA: Body
-    var bodyB: Body
+    var bodyA: String
+    var bodyB: String
     
     init(bodyA: Body, bodyB: Body) {
-        self.bodyA = bodyA
-        self.bodyB = bodyB
+        self.bodyA = bodyA.uuid
+        self.bodyB = bodyB.uuid
     }
 }
 
@@ -77,21 +75,19 @@ class Arbiter {
         var mergedContacts: [Contact] = [Contact(), Contact()]
         
         for i in 0..<numNewContacts {
-            
             let cNew: Contact = newContacts[i]
             var k: Int = -1
-            SwiftUIInterface.shared.value2 = 0.0
+            
             for j in 0..<numContacts {
                 let cOld: Contact = contacts[j]
                 if cOld.feature.value == cNew.feature.value {
-                    SwiftUIInterface.shared.value2 = 1.0
                     k = j; break
                 }
             }
             
             if k > -1 {
-                var c = mergedContacts[i]
-                let cOld = contacts[k]
+                var c: Contact = newContacts[i]
+                let cOld: Contact = contacts[k]
                 if PhysicsWorld.warmStarting {
                     c.pn = cOld.pn
                     c.pt = cOld.pt
@@ -103,7 +99,7 @@ class Arbiter {
                 }
                 mergedContacts[i] = c
             } else {
-                mergedContacts[i] = newContacts[i]
+                mergedContacts[i] = cNew
             }
         }
         
@@ -120,8 +116,6 @@ class Arbiter {
         
         for i in 0..<numContacts {
             var c: Contact = contacts[i]
-            
-            contacts[i] = c
             
             let r1 = c.position - bodyA.position
             let r2 = c.position - bodyB.position
@@ -141,15 +135,16 @@ class Arbiter {
             c.massTangent = 1.0 / kTangent
             
             c.bias = -k_biasFactor * invDt * min(c.separation + k_allowedPenetration, 0.0)
-
+            contacts[i] = c
+            
             if PhysicsWorld.accumulateImpulses {
                 let p: simd_float2 = c.pn * c.normal + c.pt * tangent
                 
                 bodyA.velocity -= bodyA.invMass * p
                 bodyA.angularVelocity -= bodyA.invInertia * cross(r1, p)
                 
-                bodyB.velocity -= bodyB.invMass * p
-                bodyB.angularVelocity -= bodyB.invInertia * cross(r1, p)
+                bodyB.velocity += bodyB.invMass * p
+                bodyB.angularVelocity += bodyB.invInertia * cross(r2, p)
             }
         }
     }
@@ -164,13 +159,13 @@ class Arbiter {
             c.r1 = c.position - b1.position
             c.r2 = c.position - b2.position
             
-            // Relative velocity at contact
+            // Relative velocity at contact point
             var dv: simd_float2 = b2.velocity + cross(b2.angularVelocity, c.r2) - b1.velocity + cross(b1.angularVelocity, c.r1)
             
             //Compute normal impulse
-            let vn = dot(dv, c.normal)
+            let vn = dot(dv, c.normal) // alas v_n - velocity along normal
             
-            var dPn = c.massNormal * (-vn + c.bias)
+            var dPn = c.massNormal * (-vn + c.bias) // alas p_n
             
             if PhysicsWorld.accumulateImpulses {
                 // Clamp the accumulated impulse
@@ -182,12 +177,12 @@ class Arbiter {
             }
         
             // Apply contact impulse
-            let pn = dPn * c.normal
+            let pn = dPn * c.normal // alas P - the impulse
             
             b1.velocity -= b1.invMass * pn
-            b1.angularVelocity += b1.invMass * cross(c.r1, pn)
+            b1.angularVelocity -= b1.invMass * cross(c.r1, pn)
             
-            b2.velocity -= b2.invMass * pn
+            b2.velocity += b2.invMass * pn
             b2.angularVelocity += b2.invMass * cross(c.r2, pn)
             
             //  Relative velocity at contact (again)
@@ -213,9 +208,9 @@ class Arbiter {
             let pt = dPt * tangent
             
             b1.velocity -= b1.invMass * pt
-            b1.angularVelocity += b1.invMass * cross(c.r1, pt)
+            b1.angularVelocity -= b1.invMass * cross(c.r1, pt)
             
-            b2.velocity -= b2.invMass * pt
+            b2.velocity += b2.invMass * pt
             b2.angularVelocity += b2.invMass * cross(c.r2, pt)
             
             contacts[i] = c
