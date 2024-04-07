@@ -65,14 +65,17 @@ class Arbiter {
         
         let collide = collide(contacts: [Contact(), Contact()], bodyA: bodyA, bodyB: bodyB)
         numContacts = collide.num
-        contacts = collide.contacts
+        contacts = []
+        for i in 0..<numContacts {
+            contacts.append(collide.contacts[i])
+        }
         
         friction = sqrtf(bodyA.friction * bodyB.friction)
     }
     
     func update(newContacts: [Contact], numNewContacts: Int) {
         
-        var mergedContacts: [Contact] = [Contact(), Contact()]
+        var mergedContacts: [Contact] = .init(repeating: Contact(), count: numNewContacts)
         
         for i in 0..<numNewContacts {
             let cNew: Contact = newContacts[i]
@@ -102,10 +105,7 @@ class Arbiter {
                 mergedContacts[i] = cNew
             }
         }
-        
-        for i in 0..<numNewContacts {
-            self.contacts[i] = mergedContacts[i]
-        }
+        self.contacts = mergedContacts
         
         numContacts = numNewContacts
     }
@@ -124,17 +124,17 @@ class Arbiter {
             let rn1 = dot(r1, c.normal)
             let rn2 = dot(r2, c.normal)
             var kNormal = bodyA.invMass + bodyB.invMass
-            kNormal += bodyA.invMass * (dot(r1, r1) - rn1 * rn1) + bodyB.invMass * (dot(r2, r2) - rn2 * rn2)
+            kNormal += bodyA.invInertia * (dot(r1, r1) - rn1 * rn1) + bodyB.invInertia * (dot(r2, r2) - rn2 * rn2)
             c.massNormal = 1.0 / kNormal
             
-            let tangent = simd_float2(c.normal.y, -c.normal.x)
+            let tangent: simd_float2 = cross(c.normal, 1.0)
             let rt1 = dot(r1, tangent)
             let rt2 = dot(r2, tangent)
             var kTangent = bodyA.invMass + bodyB.invMass
-            kTangent += bodyA.invMass * (dot(r1, r1) - rt1 * rt1) + bodyB.invMass * (dot(r2, r2) - rt2 * rt2)
+            kTangent += bodyA.invInertia * (dot(r1, r1) - rt1 * rt1) + bodyB.invInertia * (dot(r2, r2) - rt2 * rt2)
             c.massTangent = 1.0 / kTangent
             
-            c.bias = -k_biasFactor * invDt * min(c.separation + k_allowedPenetration, 0.0)
+            c.bias = -k_biasFactor * invDt * min(0.0, c.separation + k_allowedPenetration)
             contacts[i] = c
             
             if PhysicsWorld.accumulateImpulses {
@@ -160,7 +160,7 @@ class Arbiter {
             c.r2 = c.position - b2.position
             
             // Relative velocity at contact point
-            var dv: simd_float2 = b2.velocity + cross(b2.angularVelocity, c.r2) - b1.velocity + cross(b1.angularVelocity, c.r1)
+            var dv: simd_float2 = b2.velocity + cross(b2.angularVelocity, c.r2) - b1.velocity - cross(b1.angularVelocity, c.r1)
             
             //Compute normal impulse
             let vn = dot(dv, c.normal) // alas v_n - velocity along normal

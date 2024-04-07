@@ -17,6 +17,7 @@ struct Metal2DApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .navigationTitle("FISIKS")
         }
     }
 }

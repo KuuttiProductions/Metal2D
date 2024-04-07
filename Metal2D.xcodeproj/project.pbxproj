@@ -19,6 +19,8 @@
 		5150A8C32B95FF7000C55F6F /* SpeedTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 5150A8C22B95FF7000C55F6F /* SpeedTexture.png */; };
 		5150A8C52B961A7F00C55F6F /* FluidWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150A8C42B961A7F00C55F6F /* FluidWorld.swift */; };
 		515817B82BB5C0750046253D /* Collide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515817B72BB5C0750046253D /* Collide.swift */; };
+		51794E6E2BC2954B004D1EDB /* brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 51794E6D2BC2954B004D1EDB /* brick.png */; };
+		51794E702BC295B6004D1EDB /* gty.png in Resources */ = {isa = PBXBuildFile; fileRef = 51794E6F2BC295B6004D1EDB /* gty.png */; };
 		51A191302B96513A0052B8AE /* SwiftUIInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A1912F2B96513A0052B8AE /* SwiftUIInterface.swift */; };
 		51B99F812B94D0E700CCBD14 /* BackgroundTexture2.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B99F802B94D0E700CCBD14 /* BackgroundTexture2.png */; };
 		51DDFC0D2B8FA1F900DF202B /* RenderMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DDFC0C2B8FA1F900DF202B /* RenderMath.swift */; };
@@ -62,6 +64,8 @@
 		5150A8C22B95FF7000C55F6F /* SpeedTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeedTexture.png; sourceTree = "<group>"; };
 		5150A8C42B961A7F00C55F6F /* FluidWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluidWorld.swift; sourceTree = "<group>"; };
 		515817B72BB5C0750046253D /* Collide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collide.swift; sourceTree = "<group>"; };
+		51794E6D2BC2954B004D1EDB /* brick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brick.png; sourceTree = "<group>"; };
+		51794E6F2BC295B6004D1EDB /* gty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gty.png; sourceTree = "<group>"; };
 		51A1912F2B96513A0052B8AE /* SwiftUIInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIInterface.swift; sourceTree = "<group>"; };
 		51B99F802B94D0E700CCBD14 /* BackgroundTexture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundTexture2.png; sourceTree = "<group>"; };
 		51DDFC0C2B8FA1F900DF202B /* RenderMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderMath.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 		51F008752B8E708100745EE9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				51794E6F2BC295B6004D1EDB /* gty.png */,
+				51794E6D2BC2954B004D1EDB /* brick.png */,
 				510A70732BBDAB6800B0D6FD /* cobblestone.png */,
 				510A70742BBDAB6800B0D6FD /* pumpkin.png */,
 				510A70712BBD8E6B00B0D6FD /* Dirt.png */,
@@ -265,10 +271,12 @@
 				510A70722BBD8E6B00B0D6FD /* Dirt.png in Resources */,
 				51B99F812B94D0E700CCBD14 /* BackgroundTexture2.png in Resources */,
 				51DDFC172B8FBB6400DF202B /* TextureOrange.png in Resources */,
+				51794E702BC295B6004D1EDB /* gty.png in Resources */,
 				51DDFC162B8FBB6400DF202B /* TextureGray.png in Resources */,
 				5150A8C32B95FF7000C55F6F /* SpeedTexture.png in Resources */,
 				510A70752BBDAB6800B0D6FD /* cobblestone.png in Resources */,
 				51F008582B8DB99100745EE9 /* Assets.xcassets in Resources */,
+				51794E6E2BC2954B004D1EDB /* brick.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

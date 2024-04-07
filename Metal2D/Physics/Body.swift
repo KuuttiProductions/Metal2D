@@ -41,4 +41,12 @@ class Body: Node {
             invInertia = 0.0
         }
     }
+    
+    override func tick(deltaTime: Float) {
+        if Input.keys.contains(.spacebar) { jump() }
+    }
+    
+    func jump() {
+        self.addForce(f: simd_float2(0.0, 10.0))
+    }
 }

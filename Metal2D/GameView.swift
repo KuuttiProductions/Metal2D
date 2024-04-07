@@ -32,6 +32,8 @@ struct GameView: NSViewRepresentable {
         mtkView.depthStencilPixelFormat = .depth16Unorm
         mtkView.colorPixelFormat = .bgra8Unorm_srgb
         
+        mtkView.preferredFramesPerSecond = 120
+        
         return mtkView
     }
 }

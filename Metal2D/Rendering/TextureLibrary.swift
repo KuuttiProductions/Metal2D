@@ -20,6 +20,8 @@ class TextureLibrary {
         loadTexture("Dirt")
         loadTexture("cobblestone")
         loadTexture("pumpkin")
+        loadTexture("brick")
+        loadTexture("gty")
     }
     
     static func getTexture(key: String!)-> MTLTexture! {
